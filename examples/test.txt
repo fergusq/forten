@@ -1,0 +1,33 @@
+\Ignore:{\DefCmd:IgnoreNls:0{\IfEq:{\Eof}:0{\IfEq:{\PeekToken}{
+}{\Ignore:{\NextToken}\IgnoreNls}}}\DefOp{
+}{\IfEq:{\nl@ignore}:0{\IfEq:{\Eof}:0{\IfEq:{\PeekToken}{
+}{\IfEq:{\nl@nospace}:0{`
+`
+}\Else{\SetVar:nl@nospace:0}}\Else{\IfEq:{\nl@nospace}:0{ }\Else{\SetVar:nl@nospace:0}}}}\IgnoreNls}\PushVar:nl@nospace:0\PushVar:nl@ignore:1
+\DefCmd:BeginDocument:0{\SetVar:nl@ignore:0\SetVar:nl@nospace:1}
+\SetCounter:@section:0\DefCmd:Section:1{\Increase{@section}== Luku \@section`: \1`
+\SetVar{nl@nospace}{1}}}
+
+\BeginDocument
+Tämä on testi Forten-kielelle.
+Fortenin versio: \FortenVersion
+
+\Section{Testataan ohituskoodeja}
+Sulkematon sulku: `{`
+Ohitusmerkin ohitus: ```
+Kenoviiva: `\
+
+\Section{Testataan ehtolauseita}
+
+\IfEq{1}{1}{Joo}\Else{Ei}
+\IfEq{1}{2}{Ei}\Else{Joo}
+
+\Section{Väärinkäytetään FortenVersion-komentoa}
+Versio: \FortenVersion{kissa}
+
+\Section{Puten-yhteensopivuus}
+\DefCmd:content:0{\Eval:{\puten@content}}
+\DefCmd:define:2{\PushVar:{puten@body@\1}:{\2}\DefCmd:{\1}:1{\PushVar:puten@content:{\1}\Eval:{\Eval:{`\puten@body@\0}}\PopVar:puten@content}}
+\define{it}{<i>\content</i>}
+\define{bf}{<b>\content</b>}
+\it{testi \bf{testi}}
