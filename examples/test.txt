@@ -25,9 +25,17 @@ Kenoviiva: `\
 \Section{Väärinkäytetään FortenVersion-komentoa}
 Versio: \FortenVersion{kissa}
 
+\Section{System-komento}
+
+\System{echo "Hello world!" >/dev/stderr}
+
 \Section{Puten-yhteensopivuus}
-\DefCmd:content:0{\Eval:{\puten@content}}
-\DefCmd:define:2{\PushVar:{puten@body@\1}:{\2}\DefCmd:{\1}:1{\PushVar:puten@content:{\1}\Eval:{\Eval:{`\puten@body@\0}}\PopVar:puten@content}}
-\define{it}{<i>\content</i>}
-\define{bf}{<b>\content</b>}
+\Ignore:{
+ \DefCmd:content:0{\Eval:{\puten@content}}
+ \DefCmd:define:2{\PushVar:{puten@body@\1}:{\2}\DefCmd:{\1}:1{\PushVar:puten@content:{\1}\Eval:{\Eval:{`\puten@body@\0}}\PopVar:puten@content}}
+ \define:it{<i>\content</i>}
+ \define:bf{<b>\content</b>}}
+}
 \it{testi \bf{testi}}
+\Alias:if:IfEq
+\Alias:after:After

@@ -79,6 +79,9 @@ string eval_tokens(vec_iterator start, vec_iterator end) {
   return output;
 }
 
+vector<string> after_blocks;
+bool eval_again = false;
+
 int main(int argc, char **argv) {
   if (argc != 2) {
     cerr << "Usage: forten <file>" << endl;
@@ -89,7 +92,17 @@ int main(int argc, char **argv) {
   init_commands();
 
   char *filename = argv[1];
-  string output = eval_file(filename);
+  string output;
+  bool first = true;
+  do {
+    eval_again = false;
+    output = first ? eval_file(filename) : eval_string(output);
+    for (vec_iterator i = after_blocks.begin(); i < after_blocks.end(); i++) {
+      eval_string(*i);
+    }
+    after_blocks.erase(after_blocks.begin(), after_blocks.end());
+    first = false;
+  } while (eval_again);
   cout << output << endl;
   
   return 0;

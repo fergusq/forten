@@ -16,6 +16,9 @@ string eval_string(string code);
 string eval_file(string filename);
 string eval_tokens(vec_iterator start, vec_iterator end);
 
+extern vector<string> after_blocks;
+extern bool eval_again;
+
 const string FORTEN_VERSION = "Forten 0.1.0";
 
 #endif

@@ -1,5 +1,6 @@
 #include <functional>
 #include <iostream>
+#include <unistd.h>
 #include <vector>
 #include <ctype.h>
 
@@ -107,10 +108,35 @@ void init_commands() {
     return FORTEN_VERSION;
   };
 
-  /* Eval */
+  /* System */
+  COMMANDS["System"] = [] (vector<string> args) {
+    if (check_args("System", args, 1)) {
+      system(args[0].c_str());
+    }
+    return "";
+  };
+
+  /* Eval, After */
   COMMANDS["Eval"] = [] (vector<string> args) {
     if (check_args("Eval", args, 1)) {
       return eval_string(args[0]);
+    }
+    return string("");
+  };
+  COMMANDS["After"] = [] (vector<string> args) {
+    if (check_args("After", args, 1)) {
+      after_blocks.push_back(args[0]);
+    }
+    return "";
+  };
+  COMMANDS["EvalAgain"] = [] (vector<string> args) {
+    check_args("EvalAgain", args, 0);
+    eval_again = true;
+    return "";
+  };
+  COMMANDS["Include"] = [] (vector<string> args) {
+    if (check_args("Include", args, 1)) {
+      return eval_file(args[0]);
     }
     return string("");
   };
@@ -203,6 +229,12 @@ void init_commands() {
 	}
 	return string("");
       };
+    }
+    return "";
+  };
+  COMMANDS["Alias"] = [] (vector<string> args) {
+    if (check_args("Alias", args, 2)) {
+      COMMANDS[args[0]] = COMMANDS[args[1]];
     }
     return "";
   };
